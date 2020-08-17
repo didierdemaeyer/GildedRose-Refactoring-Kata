@@ -151,42 +151,42 @@ describe('Gilded Rose', function () {
         })
     })
 
-    context('Conjured Mana Cake', function () {
+    context('Conjured Item', function () {
         it('should degrade in quality by 2 when sell by date is not passed', function () {
             const gildedRose = new GildedRose([
-                new Item('Conjured Mana Cake', 10, 10),
-                new Item('Conjured Mana Cake', 1, 10),
+                new Item('Conjured Item', 10, 10),
+                new Item('Conjured Item', 1, 10),
             ]);
             const items = gildedRose.updateQuality();
 
-            expect(items[0].quality).equals(8, 'Conjured Mana Cake 1')
-            expect(items[1].quality).equals(8, 'Conjured Mana Cake 2')
+            expect(items[0].quality).equals(8, 'Conjured Item 1')
+            expect(items[1].quality).equals(8, 'Conjured Item 2')
         })
 
         it('should degrade in quality by 2 when sell by date is passed', function () {
             const gildedRose = new GildedRose([
-                new Item('Conjured Mana Cake', 0, 10),
-                new Item('Conjured Mana Cake', -1, 10),
+                new Item('Conjured Item', 0, 10),
+                new Item('Conjured Item', -1, 10),
             ]);
             const items = gildedRose.updateQuality();
 
-            expect(items[0].quality).equals(6, 'Conjured Mana Cake 1')
-            expect(items[1].quality).equals(6, 'Conjured Mana Cake 2')
+            expect(items[0].quality).equals(6, 'Conjured Item 1')
+            expect(items[1].quality).equals(6, 'Conjured Item 2')
         })
 
         it('should never degrade in quality below 0', function () {
             const gildedRose = new GildedRose([
-                new Item('Conjured Mana Cake', 10, 0),
-                new Item('Conjured Mana Cake', 1, 0),
-                new Item('Conjured Mana Cake', 0, 0),
-                new Item('Conjured Mana Cake', -1, 0),
+                new Item('Conjured Item', 10, 0),
+                new Item('Conjured Item', 1, 0),
+                new Item('Conjured Item', 0, 0),
+                new Item('Conjured Item', -1, 0),
             ]);
             const items = gildedRose.updateQuality();
 
-            expect(items[0].quality).equals(0, 'Conjured Mana Cake 1')
-            expect(items[1].quality).equals(0, 'Conjured Mana Cake 2')
-            expect(items[2].quality).equals(0, 'Conjured Mana Cake 3')
-            expect(items[3].quality).equals(0, 'Conjured Mana Cake 4')
+            expect(items[0].quality).equals(0, 'Conjured Item 1')
+            expect(items[1].quality).equals(0, 'Conjured Item 2')
+            expect(items[2].quality).equals(0, 'Conjured Item 3')
+            expect(items[3].quality).equals(0, 'Conjured Item 4')
         })
     })
 

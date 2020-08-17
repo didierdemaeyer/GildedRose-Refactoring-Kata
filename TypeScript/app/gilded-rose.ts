@@ -14,7 +14,7 @@ enum ItemNames {
     AgedBrie = 'Aged Brie',
     BackstagePasses = 'Backstage passes to a TAFKAL80ETC concert',
     Sulfuras = 'Sulfuras, Hand of Ragnaros',
-    ConjuredManaCake = 'Conjured Mana Cake',
+    Conjured = 'Conjured',
 }
 
 export class GildedRose {
@@ -37,14 +37,16 @@ export class GildedRose {
                     newQuality = this.calculateNewQualityOfBackstagePasses(sellIn, quality)
                     break
                 case ItemNames.Sulfuras:
+                case ItemNames.Conjured:
                     // do nothing
-                    break
-                case ItemNames.ConjuredManaCake:
-                    newQuality = this.calculateNewQualityOfConjuredManaCake(sellIn, quality)
                     break
                 default:
                     newQuality = this.calculateNewQualityOfItem(sellIn, quality)
                     break
+            }
+
+            if (name.indexOf('Conjured') !== -1) {
+                newQuality = this.calculateNewQualityOfConjured(sellIn, quality)
             }
 
             if (name !== ItemNames.Sulfuras) {
@@ -72,7 +74,7 @@ export class GildedRose {
         return quality - 1;
     }
 
-    private calculateNewQualityOfConjuredManaCake(sellIn: number, quality: number): number {
+    private calculateNewQualityOfConjured(sellIn: number, quality: number): number {
         if (sellIn <= 0) {
             return quality - 4;
         }
