@@ -4,15 +4,6 @@ import { Item, GildedRose } from '../app/gilded-rose';
 
 describe('Gilded Rose', function () {
 
-    // days
-    // 11
-    // 10
-    // 6
-    // 5
-    // 1
-    // 0
-    // -1
-
     context('Random item', function () {
         it('should degrade in quality by 1 when sell by date is not passed', function () {
             const gildedRose = new GildedRose([
@@ -198,15 +189,5 @@ describe('Gilded Rose', function () {
             expect(items[3].quality).equals(0, 'Conjured Mana Cake 4')
         })
     })
-
-    // 'Aged Brie'
-    // 'Backstage passes to a TAFKAL80ETC concert'
-    // 'Sulfuras, Hand of Ragnaros'
-    // 'Conjured item'
-
-    // const gildedRose = new GildedRose([new Item('Aged Brie', 0, 0)]);
-    // const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 0, 0)])
-    // const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 0, 0)])
-    // const gildedRose = new GildedRose([new Item('Conjured item', 0, 0)])
 
 });
