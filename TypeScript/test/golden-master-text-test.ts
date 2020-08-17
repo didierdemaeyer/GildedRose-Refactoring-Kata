@@ -1,4 +1,5 @@
 import { Item, GildedRose } from '../app/gilded-rose';
+// import { Item, GildedRose } from '../app/gilded-rose-old';
 
 const items = [
     new Item("+5 Dexterity Vest", 10, 20), //
