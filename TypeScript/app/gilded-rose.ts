@@ -14,7 +14,7 @@ enum ItemNames {
     AgedBrie = 'Aged Brie',
     BackstagePasses = 'Backstage passes to a TAFKAL80ETC concert',
     Sulfuras = 'Sulfuras, Hand of Ragnaros',
-    ConjuredItem = 'Conjured Item',
+    ConjuredManaCake = 'Conjured Mana Cake',
 }
 
 export class GildedRose {
@@ -37,9 +37,10 @@ export class GildedRose {
                     newQuality = this.updateQualityOfBackstagePasses(sellIn, quality)
                     break
                 case ItemNames.Sulfuras:
+                    // do nothing
                     break
-                case ItemNames.ConjuredItem:
-                    newQuality = this.updateQualityOfConjuredItem(sellIn, quality)
+                case ItemNames.ConjuredManaCake:
+                    newQuality = this.updateQualityOfConjuredManaCake(sellIn, quality)
                     break
                 default:
                     newQuality = this.updateQualityOfItem(sellIn, quality)
@@ -72,7 +73,7 @@ export class GildedRose {
         return newQuality;
     }
 
-    updateQualityOfConjuredItem(sellIn: number, quality: number): number {
+    updateQualityOfConjuredManaCake(sellIn: number, quality: number): number {
         let newQuality;
 
         if (sellIn <= 0) {
