@@ -18,15 +18,15 @@ enum ItemNames {
 }
 
 export class GildedRose {
-    items: Array<Item>;
+    items: Item[];
 
-    constructor(items = [] as Array<Item>) {
+    constructor(items: Item[] = []) {
         this.items = items;
     }
 
     updateQuality() {
-        for (let i = 0; i < this.items.length; i++) {
-            const { name, sellIn, quality } = this.items[i];
+        for (const item of this.items) {
+            const { name, sellIn, quality } = item;
             let newQuality = quality;
 
             switch (name) {
@@ -48,9 +48,9 @@ export class GildedRose {
             }
 
             if (name !== ItemNames.Sulfuras) {
-                this.items[i].sellIn--;
+                item.sellIn--;
 
-                // quality min = 0, max = 50
+                // limit quality (min 0, max 50)
                 if (newQuality < 0) {
                     newQuality = 0;
                 }
@@ -59,7 +59,7 @@ export class GildedRose {
                 }
             }
 
-            this.items[i].quality = newQuality
+            item.quality = newQuality
         }
 
         return this.items;
