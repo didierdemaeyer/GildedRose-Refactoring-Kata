@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-// import { Item, GildedRose } from '../app/gilded-rose';
-import { Item, GildedRose } from '../app/gilded-rose-new';
+import { Item, GildedRose } from '../app/gilded-rose';
+// import { Item, GildedRose } from '../app/gilded-rose-old';
 
 // function getTestItems(name)
 

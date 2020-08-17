@@ -3,11 +3,18 @@ export class Item {
     sellIn: number;
     quality: number;
 
-    constructor(name, sellIn, quality) {
+    constructor(name: string, sellIn: number, quality: number) {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
     }
+}
+
+enum ItemNames {
+    AgedBrie = 'Aged Brie',
+    BackstagePasses = 'Backstage passes to a TAFKAL80ETC concert',
+    Sulfuras = 'Sulfuras, Hand of Ragnaros',
+    ConjuredItem = 'Conjured Item',
 }
 
 export class GildedRose {
@@ -19,51 +26,95 @@ export class GildedRose {
 
     updateQuality() {
         for (let i = 0; i < this.items.length; i++) {
-            if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-                if (this.items[i].quality > 0) {
-                    if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                        this.items[i].quality = this.items[i].quality - 1
-                    }
-                }
-            } else {
-                if (this.items[i].quality < 50) {
-                    this.items[i].quality = this.items[i].quality + 1
-                    if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-                        if (this.items[i].sellIn < 11) {
-                            if (this.items[i].quality < 50) {
-                                this.items[i].quality = this.items[i].quality + 1
-                            }
-                        }
-                        if (this.items[i].sellIn < 6) {
-                            if (this.items[i].quality < 50) {
-                                this.items[i].quality = this.items[i].quality + 1
-                            }
-                        }
-                    }
-                }
+            const { name, sellIn, quality } = this.items[i];
+            let newQuality = quality;
+
+            switch (name) {
+                case ItemNames.AgedBrie:
+                    newQuality = this.updateQualityOfAgedBrie(sellIn, quality)
+                    break
+                case ItemNames.BackstagePasses:
+                    newQuality = this.updateQualityOfBackstagePasses(sellIn, quality)
+                    break
+                case ItemNames.Sulfuras:
+                    break
+                case ItemNames.ConjuredItem:
+                    newQuality = this.updateQualityOfConjuredItem(sellIn, quality)
+                    break
+                default:
+                    newQuality = this.updateQualityOfItem(sellIn, quality)
+                    break
             }
-            if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                this.items[i].sellIn = this.items[i].sellIn - 1;
+
+            if (name !== ItemNames.Sulfuras) {
+                this.items[i].sellIn--;
             }
-            if (this.items[i].sellIn < 0) {
-                if (this.items[i].name != 'Aged Brie') {
-                    if (this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-                        if (this.items[i].quality > 0) {
-                            if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                                this.items[i].quality = this.items[i].quality - 1
-                            }
-                        }
-                    } else {
-                        this.items[i].quality = this.items[i].quality - this.items[i].quality
-                    }
-                } else {
-                    if (this.items[i].quality < 50) {
-                        this.items[i].quality = this.items[i].quality + 1
-                    }
-                }
-            }
+
+            this.items[i].quality = newQuality
         }
 
         return this.items;
+    }
+
+    updateQualityOfItem(sellIn: number, quality: number): number {
+        let newQuality;
+
+        if (sellIn <= 0) {
+            newQuality = quality - 2;
+        } else {
+            newQuality = quality - 1;
+        }
+
+        if (newQuality < 0) {
+            newQuality = 0;
+        }
+
+        return newQuality;
+    }
+
+    updateQualityOfConjuredItem(sellIn: number, quality: number): number {
+        let newQuality;
+
+        if (sellIn <= 0) {
+            newQuality = quality - 4;
+        } else {
+            newQuality = quality - 2;
+        }
+
+        if (newQuality < 0) {
+            newQuality = 0;
+        }
+
+        return newQuality;
+    }
+
+    updateQualityOfBackstagePasses(sellIn: number, quality: number): number {
+        let newQuality;
+
+        if (sellIn <= 0) {
+            newQuality = 0;
+        } else if (sellIn <= 5) {
+            newQuality = quality + 3;
+        } else if (sellIn <= 10) {
+            newQuality = quality + 2;
+        } else {
+            newQuality = quality + 1;
+        }
+
+        if (newQuality > 50) {
+            newQuality = 50;
+        }
+
+        return newQuality;
+    }
+
+    updateQualityOfAgedBrie(sellIn: number, quality: number): number {
+        let newQuality = quality + 1;
+
+        if (newQuality > 50) {
+            newQuality = 50;
+        }
+
+        return newQuality;
     }
 }
