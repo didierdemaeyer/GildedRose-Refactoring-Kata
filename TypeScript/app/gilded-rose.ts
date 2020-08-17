@@ -31,7 +31,7 @@ export class GildedRose {
 
             switch (name) {
                 case ItemNames.AgedBrie:
-                    newQuality = this.updateQualityOfAgedBrie(sellIn, quality)
+                    newQuality = this.updateQualityOfAgedBrie(quality)
                     break
                 case ItemNames.BackstagePasses:
                     newQuality = this.updateQualityOfBackstagePasses(sellIn, quality)
@@ -49,6 +49,14 @@ export class GildedRose {
 
             if (name !== ItemNames.Sulfuras) {
                 this.items[i].sellIn--;
+
+                // quality min = 0, max = 50
+                if (newQuality < 0) {
+                    newQuality = 0;
+                }
+                if (newQuality > 50) {
+                    newQuality = 50;
+                }
             }
 
             this.items[i].quality = newQuality
@@ -57,65 +65,34 @@ export class GildedRose {
         return this.items;
     }
 
-    updateQualityOfItem(sellIn: number, quality: number): number {
-        let newQuality;
-
+    private updateQualityOfItem(sellIn: number, quality: number): number {
         if (sellIn <= 0) {
-            newQuality = quality - 2;
-        } else {
-            newQuality = quality - 1;
+            return quality - 2;
         }
-
-        if (newQuality < 0) {
-            newQuality = 0;
-        }
-
-        return newQuality;
+        return quality - 1;
     }
 
-    updateQualityOfConjuredManaCake(sellIn: number, quality: number): number {
-        let newQuality;
-
+    private updateQualityOfConjuredManaCake(sellIn: number, quality: number): number {
         if (sellIn <= 0) {
-            newQuality = quality - 4;
-        } else {
-            newQuality = quality - 2;
+            return quality - 4;
         }
-
-        if (newQuality < 0) {
-            newQuality = 0;
-        }
-
-        return newQuality;
+        return quality - 2;
     }
 
-    updateQualityOfBackstagePasses(sellIn: number, quality: number): number {
-        let newQuality;
-
+    private updateQualityOfBackstagePasses(sellIn: number, quality: number): number {
         if (sellIn <= 0) {
-            newQuality = 0;
-        } else if (sellIn <= 5) {
-            newQuality = quality + 3;
-        } else if (sellIn <= 10) {
-            newQuality = quality + 2;
-        } else {
-            newQuality = quality + 1;
+            return 0;
         }
-
-        if (newQuality > 50) {
-            newQuality = 50;
+        if (sellIn <= 5) {
+            return quality + 3;
         }
-
-        return newQuality;
+        if (sellIn <= 10) {
+            return quality + 2;
+        }
+        return quality + 1;
     }
 
-    updateQualityOfAgedBrie(sellIn: number, quality: number): number {
-        let newQuality = quality + 1;
-
-        if (newQuality > 50) {
-            newQuality = 50;
-        }
-
-        return newQuality;
+    private updateQualityOfAgedBrie(quality: number): number {
+        return quality + 1;
     }
 }
