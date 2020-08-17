@@ -31,19 +31,19 @@ export class GildedRose {
 
             switch (name) {
                 case ItemNames.AgedBrie:
-                    newQuality = this.updateQualityOfAgedBrie(quality)
+                    newQuality = this.calculateNewQualityOfAgedBrie(quality)
                     break
                 case ItemNames.BackstagePasses:
-                    newQuality = this.updateQualityOfBackstagePasses(sellIn, quality)
+                    newQuality = this.calculateNewQualityOfBackstagePasses(sellIn, quality)
                     break
                 case ItemNames.Sulfuras:
                     // do nothing
                     break
                 case ItemNames.ConjuredManaCake:
-                    newQuality = this.updateQualityOfConjuredManaCake(sellIn, quality)
+                    newQuality = this.calculateNewQualityOfConjuredManaCake(sellIn, quality)
                     break
                 default:
-                    newQuality = this.updateQualityOfItem(sellIn, quality)
+                    newQuality = this.calculateNewQualityOfItem(sellIn, quality)
                     break
             }
 
@@ -65,21 +65,21 @@ export class GildedRose {
         return this.items;
     }
 
-    private updateQualityOfItem(sellIn: number, quality: number): number {
+    private calculateNewQualityOfItem(sellIn: number, quality: number): number {
         if (sellIn <= 0) {
             return quality - 2;
         }
         return quality - 1;
     }
 
-    private updateQualityOfConjuredManaCake(sellIn: number, quality: number): number {
+    private calculateNewQualityOfConjuredManaCake(sellIn: number, quality: number): number {
         if (sellIn <= 0) {
             return quality - 4;
         }
         return quality - 2;
     }
 
-    private updateQualityOfBackstagePasses(sellIn: number, quality: number): number {
+    private calculateNewQualityOfBackstagePasses(sellIn: number, quality: number): number {
         if (sellIn <= 0) {
             return 0;
         }
@@ -92,7 +92,7 @@ export class GildedRose {
         return quality + 1;
     }
 
-    private updateQualityOfAgedBrie(quality: number): number {
+    private calculateNewQualityOfAgedBrie(quality: number): number {
         return quality + 1;
     }
 }
