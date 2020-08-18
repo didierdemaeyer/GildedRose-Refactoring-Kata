@@ -163,7 +163,7 @@ describe('Gilded Rose', function () {
             expect(items[1].quality).equals(8, 'Conjured Mana Cake 2')
         })
 
-        it('should degrade in quality by 2 when sell by date is passed', function () {
+        it('should degrade in quality by 4 when sell by date is passed', function () {
             const gildedRose = new GildedRose([
                 new Item('Conjured Mana Cake', 0, 10),
                 new Item('Conjured Mana Cake', -1, 10),
