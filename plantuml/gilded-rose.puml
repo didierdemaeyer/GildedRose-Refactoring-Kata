@@ -1,0 +1,56 @@
+@startuml Gilded Rose - Item quality update logic
+
+' START STYLING
+skinparam backgroundColor transparent
+skinparam ConditionEndStyle hline
+' END STYLING
+
+
+start
+
+note left
+    Do this for each item in the list.
+    An item has a name, a sell in value and a quality value
+end note
+
+if (name == "Aged Brie") then (yes)
+    :quality + 1;
+elseif (name == "Backstage passes to a TAFKAL80ETC concert") then (yes)
+    if (sell in <= 0) then (yes)
+        :quality = 0;
+    elseif (sell in <= 5) then (yes)
+        :quality - 3;
+    elseif (sell in <= 10) then (yes)
+        :quality - 2;
+    else (no)
+        :quality - 1;
+    endif
+elseif (name == "Sulfuras, Hand of Ragnaros") then (yes)
+    :do nothing;
+elseif (name == "Conjured Item") then (yes)
+    if (sell in <= 0) then (yes)
+        :quality - 4;
+    else (no)
+        :quality - 2;
+    endif
+else (random item)
+    if (sell in <= 0) then (yes)
+        :quality - 2;
+    else (no)
+        :quality - 1;
+    endif
+endif
+
+if (name != "Sulfuras, Hand of Ragnaros") then (yes)
+    :sell in - 1;
+    if (quality < 0) then (yes)
+        :quality = 0;
+    elseif (quality > 50) then (yes)
+        :quality = 50;
+    endif
+else (no)
+endif
+
+stop
+
+@enduml
